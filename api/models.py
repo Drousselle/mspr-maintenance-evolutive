@@ -49,8 +49,8 @@ class Arrondissement(models.Model):
 
 class Plage(models.Model):
     arrondissement_id = models.ForeignKey(Arrondissement, models.DO_NOTHING)
-    date_debut = models.DateField('Date debut', max_length=10)
-    date_fin = models.DateField('Date fin', max_length=10)
+    horaire_debut = models.CharField('heure debut', max_length=10)
+    horaire_fin = models.CharField('heure fin', max_length=10)
 
 
 class Lampadaire(models.Model):
