@@ -1,8 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-
 class Espace(models.Model):
     id = models.SlugField('Id', auto_created=False, unique=True, primary_key=True)
     nom = models.CharField('Nom', max_length=50)
@@ -21,7 +19,6 @@ class Tache(models.Model):
 
 
 class Institution(models.Model):
-    id = models.SlugField('Id', auto_created=False, unique=True, primary_key=True)
     code = models.CharField('code', max_length=20)
 
 
@@ -36,15 +33,24 @@ class Pays(models.Model):
 
 
 class Region(models.Model):
+    code = models.CharField('code', max_length=10)
     pays_id = models.ForeignKey(Pays, models.DO_NOTHING)
 
 
 class Departement(models.Model):
+    code = models.CharField('code', max_length=10)
     region_id = models.ForeignKey(Region, models.DO_NOTHING)
 
 
 class Arrondissement(models.Model):
+    code = models.CharField('code', max_length=10)
     departement_id = models.ForeignKey(Departement, models.DO_NOTHING)
+
+
+class Plage(models.Model):
+    arrondissement_id = models.ForeignKey(Arrondissement, models.DO_NOTHING)
+    date_debut = models.DateField('Date debut', max_length=10)
+    date_fin = models.DateField('Date fin', max_length=10)
 
 
 class Lampadaire(models.Model):
