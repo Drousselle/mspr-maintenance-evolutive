@@ -58,33 +58,15 @@ class DepartementSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'region_id')
 
 
-class PlageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Plage
-        fields = ('date', 'horaire_debut', 'horaire_fin')
-
-
-class LampadaireSerializer(serializers.ModelSerializer):
+class EclairageHoraireSerializer(serializers.ModelSerializer):
+    plages = serializers.SerializerMethodField('_get_plages')
 
     class Meta:
         model = Lampadaire
-        fields = ('latitude', 'longitude')
+        fields = ('id', 'latitude', 'longitude', 'plages')
 
+    def _get_plages(self, obj):
+        arrondissement = obj.arrondissement_id
+        plages = Plage.objects.filter(arrondissement_id=arrondissement.id)
 
-class EclairageHoraireSerialize(serializers.ModelSerializer):
-    lampadaire_set = LampadaireSerializer(many=True, read_only=True)
-    plage_set = PlageSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Arrondissement
-        fields = ('id', 'lampadaire_set', 'plage_set')
-
-
-class ArrondissementSerializer(serializers.ModelSerializer):
-    lampadaire_set = LampadaireSerializer(many=True, read_only=True)
-    plage_set = PlageSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Arrondissement
-        fields = ('id', 'lampadaire_set', 'plage_set')
-
+        return [{'Date': plage.date, 'Allumage': plage.horaire_debut, 'Extinction': plage.horaire_debut} for plage in plages]

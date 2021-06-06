@@ -1,9 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.response import Response
-
 from .serializers import *
 from .models import *
 
@@ -48,21 +46,18 @@ class DepartementViewSet(viewsets.ModelViewSet):
     serializer_class = DepartementSerializer
 
 
-# class ArrondissementViewSet(viewsets.ModelViewSet):
-#     queryset = Arrondissement.objects.all()
-#     serializer_class = ArrondissementSerializer
-
-#
-# class PlageViewSet(viewsets.ModelViewSet):
-#     queryset = Plage.objects.all().order_by('arrondissement_id')
-#     serializer_class = PlageSerializer
-
-
-class LampadaireViewSet(viewsets.ModelViewSet):
-    queryset = Lampadaire.objects.all().order_by('id')
-    serializer_class = LampadaireSerializer
-
-
 class EclairageHoraireViewSet(viewsets.ModelViewSet):
-    queryset = Arrondissement.objects.all()
-    serializer_class = EclairageHoraireSerialize
+    queryset = Lampadaire.objects.all()
+    serializer_class = EclairageHoraireSerializer
+
+
+class GetEclairageByDay(APIView):
+
+    def get(self, request, date):
+        """
+        """
+        print('____________________ ')
+        print(self)
+        print(request)
+        print(date)
+        return Response({"success": True, "content": "Hello World!"})
