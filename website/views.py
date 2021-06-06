@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import redirect, render
 from .models import Document
 from .forms import UploadFileForm
