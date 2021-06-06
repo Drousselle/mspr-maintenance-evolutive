@@ -1,62 +1,61 @@
 from rest_framework import serializers
 
-from .models import Espace, Chantier, Plage, Tache, Institution, Horaire, Pays, Region, Departement, Arrondissement, Lampadaire # noqa
+from .models import Espace, Chantier, Plage, Tache, Institution, Horaire, Pays, Region, Departement, Arrondissement, \
+    Lampadaire  # noqa
 
 
 class EspaceSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Espace
-        fields = '__all__'
+        fields = ('id', 'nom', 'adresse')
+
+
+class PlageSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Plage
+        fields = ('arrondissement_id', 'date', 'horaire_debut', 'horaire_fin')
 
 
 class HoraireSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Horaire
-        fields = '__all__'
+        fields = ('id', 'date', 'horaire_debut', 'horaire_fin', 'institution_id')
 
 
 class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Institution
-        fields = '__all__'
+        fields = ('id', 'code')
 
 
 class ChantierSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Chantier
-        fields = '__all__'
+        fields = ('id', 'espace')
 
 
 class TacheSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Tache
-        fields = '__all__'
+        fields = ('id', 'nom', 'etat', 'date_fin', 'chantier')
 
 
 class PaysSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Pays
-        fields = '__all__'
+        fields = ('id', 'code')
 
 
 class RegionSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Region
-        fields = '__all__'
+        fields = ('id', 'code', 'pays_id')
 
 
 class DepartementSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
-        model = Espace
-        fields = '__all__'
+        model = Departement
+        fields = ('id', 'code', 'region_id')
 
 
 class EspaceTravauxSerializer(serializers.ModelSerializer):
@@ -78,7 +77,6 @@ class EspaceTravauxSerializer(serializers.ModelSerializer):
 
 
 class EspaceTravauxOuvertsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Espace
         fields = '__all__'

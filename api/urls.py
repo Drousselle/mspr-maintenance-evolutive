@@ -12,6 +12,7 @@ router.register(r'pays', views.PaysViewSet, 'pays')
 router.register(r'region', views.RegionViewSet, 'regions')
 router.register(r'departement', views.DepartementViewSet, 'departements')
 router.register(r'eclairage', views.EclairageViewSet, 'eclairages')
+router.register(r'plage', views.PlageViewSet, 'plags')
 router.register(r'espaces/travaux', views.EspacesTravauxViewSet, 'espaces_travaux')
 router.register(r'espaces/ouverts', views.EspacesTravauxOuvertsViewSet, 'espaces_ouverts')
 
