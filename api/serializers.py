@@ -43,30 +43,48 @@ class PaysSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RegionSerializer(serializers.HyperlinkedModelSerializer):
+    pays_id = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+
     class Meta:
         model = Region
         fields = ('id', 'pays_id')
 
 
 class DepartementSerializer(serializers.HyperlinkedModelSerializer):
+    region_id = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+
     class Meta:
         model = Departement
         fields = ('id', 'region_id')
 
 
-class ArrondissementSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Arrondissement
-        fields = ('id', 'departement_id')
-
-
-class PlageSerializer(serializers.HyperlinkedModelSerializer):
+class PlageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plage
-        fields = ('arrondissement_id', 'horaire_debut', 'horaire_fin')
+        fields = ('date', 'horaire_debut', 'horaire_fin')
 
 
-class LampadaireSerializer(serializers.HyperlinkedModelSerializer):
+class LampadaireSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Lampadaire
-        fields = ('id', 'latitude', 'longitude', 'arrondissement_id')
+        fields = ('latitude', 'longitude')
+
+
+class EclairageHoraireSerialize(serializers.ModelSerializer):
+    lampadaire_set = LampadaireSerializer(many=True, read_only=True)
+    plage_set = PlageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Arrondissement
+        fields = ('id', 'lampadaire_set', 'plage_set')
+
+
+class ArrondissementSerializer(serializers.ModelSerializer):
+    lampadaire_set = LampadaireSerializer(many=True, read_only=True)
+    plage_set = PlageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Arrondissement
+        fields = ('id', 'lampadaire_set', 'plage_set')
+

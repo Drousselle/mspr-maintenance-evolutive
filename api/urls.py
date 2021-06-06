@@ -11,10 +11,10 @@ router.register(r'tache', views.TacheViewSet)
 router.register(r'pays', views.PaysViewSet)
 router.register(r'region', views.RegionViewSet)
 router.register(r'departement', views.DepartementViewSet)
-router.register(r'arrondissement', views.ArrondissementViewSet)
-router.register(r'plage', views.PlageViewSet)
+# router.register(r'arrondissement', views.ArrondissementViewSet)
+# router.register(r'plage', views.PlageViewSet)
 router.register(r'lampadaire', views.LampadaireViewSet)
-# router.register(r'eclairage/horaire/$', views.EclairageHoraireViewSet)
+router.register(r'eclairage/horaire', views.EclairageHoraireViewSet)
 
 
 urlpatterns = [
