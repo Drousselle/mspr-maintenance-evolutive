@@ -9,7 +9,6 @@ def file_upload(request):
         if form.is_valid():
             newdoc = Document(docfile=request.FILES['docfile'])
             newdoc.save()
-            newdoc.action_fill_database()
 
             return redirect('file_upload')
 
