@@ -23,8 +23,9 @@ class Institution(models.Model):
 
 
 class Horaire(models.Model):
-    debut = models.CharField('Debut', max_length=10)
-    fin = models.CharField('Fin', max_length=10)
+    date = models.DateField('date', max_length=10)
+    horaire_debut = models.CharField('Horaire debut', max_length=10)
+    horaire_fin = models.CharField('Horaire fin', max_length=10)
     institution_id = models.ForeignKey(Institution, models.DO_NOTHING)
 
 
@@ -49,6 +50,7 @@ class Arrondissement(models.Model):
 
 class Plage(models.Model):
     arrondissement_id = models.ForeignKey(Arrondissement, models.DO_NOTHING)
+    date = models.DateField('date', max_length=10)
     horaire_debut = models.CharField('heure debut', max_length=10)
     horaire_fin = models.CharField('heure fin', max_length=10)
 

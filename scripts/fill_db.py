@@ -1,4 +1,5 @@
-from api.models import Espace, Chantier, Tache, Institution, Horaire, Pays, Region, Departement, Arrondissement, Lampadaire
+from api.models import Espace, Chantier, Plage, Tache, Institution, Horaire, Pays, Region, Departement, Arrondissement, Lampadaire # noqa
+
 
 def dummy_generate_chantier():
     espaces = [
@@ -30,14 +31,15 @@ def dummy_generate_chantier():
         for tache in taches:
             Tache.objects.create(**{**tache, **{'chantier': chantier_id}})
 
+
 def dummy_generate_institution():
-    institutions =  [
+    institutions = [
         {'code': 'POSTE_CHATELET', 'horaires': [
-            {'debut': '09:00', 'fin': '17:00'}
+            {'date': '2021-06-08', 'horaire_debut': '09:00', 'horaire_fin': '17:00'}
         ]},
         {'code': 'POSTE_ARRAS', 'horaires': [
-            {'debut': '09:00', 'fin': '12:00'},
-            {'debut': '13:00', 'fin': '18:00'}
+            {'date': '2021-06-07', 'horaire_debut': '09:00', 'horaire_fin': '12:00'},
+            {'date': '2021-06-07', 'horaire_debut': '13:00', 'horaire_fin': '18:00'}
         ]},
     ]
 
@@ -47,46 +49,68 @@ def dummy_generate_institution():
         for horaire in horaires:
             Horaire.objects.create(**{**horaire, **{'institution_id': institution_id}})
 
+
 def dummy_generate_eclairage():
     eclairages = [
         {'code': 'FR', 'regions': [
             {'code': 'IdF', 'departements': [
                 {'code': 'PARIS', 'arrondissements': [
-                    {'code': '01', 'lampadaires': [
-                        {'id': 'CD0X+32', 'latitude': -5.1, 'longitude': -68.3},
-                    ]},
-                    {'code': '02', 'lampadaires': []},
-                    {'code': '03', 'lampadaires': []},
-                    {'code': '04', 'lampadaires': [
-                        {'id': 'CM1P-t2', 'latitude': -5.1, 'longitude': -68.3},
-                        {'id': 'AT43+V2', 'latitude': -23.1, 'longitude': 8.8},
-                    ]},
-                    {'code': '05', 'lampadaires': []},
-                    {'code': '06', 'lampadaires': []},
-                    {'code': '07', 'lampadaires': [
-                        {'id': 'B3GH-CD', 'latitude': -6.1, 'longitude': -78.3},
-                        {'id': 'AOP9+E4', 'latitude': 7.03, 'longitude': -16.84},
-                    ]},
-                    {'code': '08', 'lampadaires': []},
-                    {'code': '09', 'lampadaires': []},
-                    {'code': '10', 'lampadaires': []},
-                    {'code': '11', 'lampadaires': []},
-                    {'code': '12', 'lampadaires': [
-                        {'id': 'MM9F-32', 'latitude': 9.8, 'longitude': 8.3},
-                    ]},
-                    {'code': '13', 'lampadaires': []},
-                    {'code': '14', 'lampadaires': []},
-                    {'code': '15', 'lampadaires': []},
-                    {'code': '16', 'lampadaires': []},
-                    {'code': '17', 'lampadaires': []},
-                    {'code': '18', 'lampadaires': []},
-                    {'code': '19', 'lampadaires': []},
-                    {'code': '20', 'lampadaires': []},
+                    {'code': '01',
+                     'plages': [{'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-08', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-08', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'}],
+                     'lampadaires': [{'id': 'CD0X+32', 'latitude': -5.1, 'longitude': -68.3}]},
+                    {'code': '02', 'plages': [], 'lampadaires': []},
+                    {'code': '03', 'plages': [], 'lampadaires': []},
+                    {'code': '04',
+                     'plages': [{'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-08', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                                {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'}],
+                     'lampadaires': [{'id': 'CM1P-t2', 'latitude': -15, 'longitude': -68.3},
+                                     {'id': 'AT43+V2', 'latitude': -12.1, 'longitude': 8.8}]},
+                    {'code': '05', 'plages': [], 'lampadaires': []},
+                    {'code': '06', 'plages': [], 'lampadaires': []},
+                    {'code': '07',
+                     'plages': [
+                         {'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-08', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'}
+                     ],
+                     'lampadaires': [{'id': 'B3GH-CD', 'latitude': -6.1, 'longitude': -78.3},
+                                     {'id': 'AOP9+E4', 'latitude': 7.03, 'longitude': -16.84}]},
+                    {'code': '08', 'plages': [], 'lampadaires': []},
+                    {'code': '09', 'plages': [], 'lampadaires': []},
+                    {'code': '10', 'plages': [], 'lampadaires': []},
+                    {'code': '11', 'plages': [], 'lampadaires': []},
+                    {'code': '12',
+                     'plages': [
+                         {'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-07', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-08', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'},
+                         {'date': '2021-06-10', 'horaire_debut': '22:00', 'horaire_fin': '08:00'}
+                     ],
+                     'lampadaires': [{'id': 'MM9F-32', 'latitude': 9.8, 'longitude': 8.3}]},
+                    {'code': '13', 'plages': [], 'lampadaires': []},
+                    {'code': '14', 'plages': [], 'lampadaires': []},
+                    {'code': '15', 'plages': [], 'lampadaires': []},
+                    {'code': '16', 'plages': [], 'lampadaires': []},
+                    {'code': '17', 'plages': [], 'lampadaires': []},
+                    {'code': '18', 'plages': [], 'lampadaires': []},
+                    {'code': '19', 'plages': [], 'lampadaires': []},
+                    {'code': '20', 'plages': [], 'lampadaires': []},
                 ]}
             ]}
         ]}
     ]
-    
+
     for eclairage in eclairages:
         regions = eclairage.pop('regions')
         pays_id = Pays.objects.create(**eclairage)
@@ -97,12 +121,17 @@ def dummy_generate_eclairage():
                 arrondissements = departement.pop('arrondissements')
                 dep_id = Departement.objects.create(**{**departement, **{'region_id': region_id}})
                 for arrondissement in arrondissements:
+                    plages = arrondissement.pop('plages')
                     lampadaires = arrondissement.pop('lampadaires')
-                    arrondissement_id = Arrondissement.objects.create(**{**arrondissement, **{'departement_id': dep_id}})
+                    arrondissement_id = Arrondissement.objects.create(**{**arrondissement,
+                                                                      **{'departement_id': dep_id}})
+                    for plage in plages:
+                        Plage.objects.create(**{**plage, **{'arrondissement_id': arrondissement_id}})
                     for lampadaire in lampadaires:
                         Lampadaire.objects.create(**{**lampadaire, **{'arrondissement_id': arrondissement_id}})
 
+
 def run():
-    dummy_generate_eclairage() # BASED
-    dummy_generate_institution() # PORTE
-    dummy_generate_chantier() # SEDATIF
+    dummy_generate_eclairage()  # BASED
+    dummy_generate_institution()  # PORTE
+    dummy_generate_chantier()  # SEDATIF
