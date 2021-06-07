@@ -11,61 +11,82 @@ from rest_framework_csv import renderers as r
 class EspaceViewSet(viewsets.ModelViewSet):
     queryset = Espace.objects.all().order_by('nom')
     serializer_class = EspaceSerializer  # noqa
+    http_method_names = ['get']
 
 
 class HoraireViewSet(viewsets.ModelViewSet):
     queryset = Horaire.objects.all().order_by('institution_id')
     serializer_class = HoraireSerializer  # noqa
+    http_method_names = ['get']
 
 
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institution.objects.all().order_by('id')
     serializer_class = InstitutionSerializer  # noqa
+    http_method_names = ['get']
 
 
 class PlageViewSet(viewsets.ModelViewSet):
     queryset = Plage.objects.all().order_by('id')
-    serializer_class = PlageSerializer
+    serializer_class = PlageSerializer # noqa
+    http_method_names = ['get']
 
 
 class ChantierViewSet(viewsets.ModelViewSet):
     queryset = Chantier.objects.all().order_by('id')
     serializer_class = ChantierSerializer  # noqa
+    http_method_names = ['get']
 
 
 class TacheViewSet(viewsets.ModelViewSet):
     queryset = Tache.objects.all().order_by('id')
     serializer_class = TacheSerializer  # noqa
+    http_method_names = ['get']
 
 
 class PaysViewSet(viewsets.ModelViewSet):
     queryset = Pays.objects.all().order_by('id')
     serializer_class = PaysSerializer  # noqa
+    http_method_names = ['get']
 
 
 class RegionViewSet(viewsets.ModelViewSet):
     queryset = Region.objects.all().order_by('id')
     serializer_class = RegionSerializer  # noqa
+    http_method_names = ['get']
 
 
 class DepartementViewSet(viewsets.ModelViewSet):
     queryset = Departement.objects.all().order_by('id')
     serializer_class = DepartementSerializer  # noqa
+    http_method_names = ['get']
 
 
 class EclairageViewSet(viewsets.ModelViewSet):
     queryset = Lampadaire.objects.all()
     serializer_class = EclairageSerializer  # noqa
+    http_method_names = ['get']
 
 
 class EspacesTravauxViewSet(viewsets.ModelViewSet):
     renderer_classes = (r.CSVRenderer,) + tuple(api_settings.DEFAULT_RENDERER_CLASSES)
 
-    queryset = Espace.objects.all().order_by('id')
+    espace_ids = []
+    for espace in Espace.objects.all():
+        for chantier in Chantier.objects.filter(espace=espace):
+            taches = Tache.objects.filter(chantier=chantier)
+            nb_done = taches.filter(etat='En cours')
+
+            if len(nb_done) > 0:
+                espace_ids.append(taches[0].chantier.espace.id)
+
+    queryset = Espace.objects.filter(id__in=espace_ids).order_by('id')
     serializer_class = EspaceTravauxSerializer  # noqa
+    http_method_names = ['get']
 
 
 class EspacesTravauxOuvertsViewSet(viewsets.ModelViewSet):
+    renderer_classes = (r.CSVRenderer,) + tuple(api_settings.DEFAULT_RENDERER_CLASSES)
 
     espace_ids = []
     for espace in Espace.objects.all():
@@ -78,6 +99,7 @@ class EspacesTravauxOuvertsViewSet(viewsets.ModelViewSet):
 
     queryset = Espace.objects.filter(id__in=espace_ids).order_by('id')
     serializer_class = EspaceTravauxOuvertsSerializer  # noqa
+    http_method_names = ['get']
 
 
 class GetEclairageByDay(APIView):

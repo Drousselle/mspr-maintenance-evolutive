@@ -4,31 +4,31 @@ from .models import Espace, Chantier, Plage, Tache, Institution, Horaire, Pays, 
     Lampadaire  # noqa
 
 
-class EspaceSerializer(serializers.HyperlinkedModelSerializer):
+class EspaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Espace
         fields = ('id', 'nom', 'adresse')
 
 
-class PlageSerializer(serializers.HyperlinkedModelSerializer):
+class PlageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plage
         fields = ('arrondissement_id', 'date', 'horaire_debut', 'horaire_fin')
 
 
-class HoraireSerializer(serializers.HyperlinkedModelSerializer):
+class HoraireSerializer(serializers.ModelSerializer):
     class Meta:
         model = Horaire
         fields = ('id', 'date', 'horaire_debut', 'horaire_fin', 'institution_id')
 
 
-class InstitutionSerializer(serializers.HyperlinkedModelSerializer):
+class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
         fields = ('id', 'code')
 
 
-class ChantierSerializer(serializers.HyperlinkedModelSerializer):
+class ChantierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chantier
         fields = ('id', 'espace')
@@ -40,13 +40,13 @@ class TacheSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'nom', 'etat', 'date_fin', 'chantier')
 
 
-class PaysSerializer(serializers.HyperlinkedModelSerializer):
+class PaysSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pays
         fields = ('id', 'code')
 
 
-class RegionSerializer(serializers.HyperlinkedModelSerializer):
+class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
         fields = ('id', 'code', 'pays_id')
