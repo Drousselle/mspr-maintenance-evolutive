@@ -15,16 +15,13 @@ class getHoraire(TestCase):
         institution_1 = Institution.objects.create(id="1", code="POSTE_CHATELET")
         institution_2 = Institution.objects.create(id="2", code="POSTE_ARRAS")
         Horaire.objects.create(
-            id="1", date="2021-06-08", horaire_debut="09:00", horaire_fin="17:00",
-            institution_id=institution_1
+            id="1", date="2021-06-08", horaire_debut="09:00", horaire_fin="17:00", institution_id=institution_1
         )
         Horaire.objects.create(
-            id="2", date="2021-06-07", horaire_debut="09:00", horaire_fin="12:00",
-            institution_id=institution_2
+            id="2", date="2021-06-07", horaire_debut="09:00", horaire_fin="12:00", institution_id=institution_2
         )
         Horaire.objects.create(
-            id="3", date="2021-06-07", horaire_debut="13:00", horaire_fin="18:00",
-            institution_id=institution_2
+            id="3", date="2021-06-07", horaire_debut="13:00", horaire_fin="18:00", institution_id=institution_2
         )
 
     def test_http_code_200(self):
