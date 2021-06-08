@@ -8,8 +8,14 @@ from rest_framework.settings import api_settings
 from rest_framework_csv import renderers as r
 
 
+class ArrondissementViewSet(viewsets.ModelViewSet):
+    queryset = Arrondissement.objects.all().order_by('id')
+    serializer_class = ArrondissementSerializer
+    http_method_names = ['get']
+
+
 class EspaceViewSet(viewsets.ModelViewSet):
-    queryset = Espace.objects.all().order_by('nom')
+    queryset = Espace.objects.all().order_by('id')
     serializer_class = EspaceSerializer  # noqa
     http_method_names = ['get']
 
@@ -28,7 +34,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
 
 class PlageViewSet(viewsets.ModelViewSet):
     queryset = Plage.objects.all().order_by('id')
-    serializer_class = PlageSerializer # noqa
+    serializer_class = PlageSerializer  # noqa
     http_method_names = ['get']
 
 

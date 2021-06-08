@@ -5,30 +5,41 @@ from api.views import EspaceViewSet
 from api.serializers import EspaceSerializer
 
 
-class GetAllEspaces(TestCase):
-    """
-    """
-
+class GetEspaces(TestCase):
     factory = APIRequestFactory()
 
     def setUp(self):
         Espace.objects.create(
-            id='PLC_PIGALLE', nom='Place Pigalle', adresse='Place Pigalle 75009 PARIS')
+            id='PLC_PIGALLE', nom='Place Pigalle', adresse='Place Pigalle 75009 PARIS'
+        )
         Espace.objects.create(
-            id='PRC_MONCEAU', nom='Parc Monceau', adresse='35 Boulevard de Courcelles, 75008 Paris')
+            id='PRC_MONCEAU', nom='Parc Monceau', adresse='35 Boulevard de Courcelles, 75008 Paris'
+        )
         Espace.objects.create(
-            id='RUE_PELC', nom='Rue piétonne du Poil-au-con', adresse='Rue du Pélican 75001 PARIS')
+            id='RUE_PELC', nom='Rue piétonne du Poil-au-con', adresse='Rue du Pélican 75001 PARIS'
+        )
+        Espace.objects.create(
+            id='SLL_Z', nom='Salle Z', adresse='Plaque Télécom, Port Royal 74014 PARIS'
+        )
 
     def test_http_code_200(self):
-        request = self.factory.get('/api/espace/')
+        request = self.factory.get("")
         view = EspaceViewSet.as_view({'get': 'list'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_all_espaces(self):
-        request = self.factory.get('/api/espace/')
+        request = self.factory.get("")
         espaces = Espace.objects.all()
         serializer = EspaceSerializer(espaces, many=True)
         view = EspaceViewSet.as_view({'get': 'list'})
         response = view(request)
-        self.assertEqual(len(response.data), len(serializer.data))
+        self.assertEqual(response.data, serializer.data)
+
+    def test_get_one_espace(self):
+        request = self.factory.get("")
+        espaces = Espace.objects.filter(id="PLC_PIGALLE")
+        serializer = EspaceSerializer(espaces, many=True)
+        view = EspaceViewSet.as_view({'get': 'retrieve'})
+        response = view(request, pk="PLC_PIGALLE")
+        self.assertEqual(response.data, serializer.data[0])
