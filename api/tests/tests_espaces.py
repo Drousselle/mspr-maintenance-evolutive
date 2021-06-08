@@ -13,11 +13,17 @@ class GetEspaces(TestCase):
 
     def setUp(self):
         Espace.objects.create(
-            id='PLC_PIGALLE', nom='Place Pigalle', adresse='Place Pigalle 75009 PARIS')
+            id='PLC_PIGALLE', nom='Place Pigalle', adresse='Place Pigalle 75009 PARIS'
+        )
         Espace.objects.create(
-            id='PRC_MONCEAU', nom='Parc Monceau', adresse='35 Boulevard de Courcelles, 75008 Paris')
+            id='PRC_MONCEAU', nom='Parc Monceau', adresse='35 Boulevard de Courcelles, 75008 Paris'
+        )
         Espace.objects.create(
-            id='RUE_PELC', nom='Rue piétonne du Poil-au-con', adresse='Rue du Pélican 75001 PARIS')
+            id='RUE_PELC', nom='Rue piétonne du Poil-au-con', adresse='Rue du Pélican 75001 PARIS'
+        )
+        Espace.objects.create(
+            id='SLL_Z', nom='Salle Z', adresse='Plaque Télécom, Port Royal 74014 PARIS'
+        )
 
     def test_http_code_200(self):
         request = self.factory.get('/api/espace/')
