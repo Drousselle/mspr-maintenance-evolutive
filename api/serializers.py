@@ -22,6 +22,12 @@ class HoraireSerializer(serializers.ModelSerializer):
         fields = ('id', 'date', 'horaire_debut', 'horaire_fin', 'institution_id')
 
 
+class ArrondissementSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Arrondissement
+        fields = ('id', 'code', 'departement_id')
+
+
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
