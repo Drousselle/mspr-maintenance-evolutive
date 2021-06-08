@@ -9,7 +9,7 @@ from rest_framework_csv import renderers as r
 
 
 class EspaceViewSet(viewsets.ModelViewSet):
-    queryset = Espace.objects.all().order_by('nom')
+    queryset = Espace.objects.all().order_by('id')
     serializer_class = EspaceSerializer  # noqa
     http_method_names = ['get']
 

@@ -31,4 +31,12 @@ class GetAllEspaces(TestCase):
         serializer = EspaceSerializer(espaces, many=True)
         view = EspaceViewSet.as_view({'get': 'list'})
         response = view(request)
-        self.assertEqual(len(response.data), len(serializer.data))
+        self.assertEqual(response.data, serializer.data)
+
+    def test_get_one_espace(self):
+        request = self.factory.get('/api/espace/')
+        espaces = Espace.objects.filter(id="PLC_PIGALLE")
+        serializer = EspaceSerializer(espaces, many=True)
+        view = EspaceViewSet.as_view({'get': 'retrieve'})
+        response = view(request, pk="PLC_PIGALLE")
+        self.assertEqual(response.data, serializer.data[0])
