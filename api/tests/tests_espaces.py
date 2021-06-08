@@ -6,9 +6,6 @@ from api.serializers import EspaceSerializer
 
 
 class GetEspaces(TestCase):
-    """
-    """
-
     factory = APIRequestFactory()
 
     def setUp(self):
@@ -26,13 +23,13 @@ class GetEspaces(TestCase):
         )
 
     def test_http_code_200(self):
-        request = self.factory.get('/api/espace/')
+        request = self.factory.get("")
         view = EspaceViewSet.as_view({'get': 'list'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_all_espaces(self):
-        request = self.factory.get('/api/espace/')
+        request = self.factory.get("")
         espaces = Espace.objects.all()
         serializer = EspaceSerializer(espaces, many=True)
         view = EspaceViewSet.as_view({'get': 'list'})
@@ -40,7 +37,7 @@ class GetEspaces(TestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_get_one_espace(self):
-        request = self.factory.get('/api/espace/')
+        request = self.factory.get("")
         espaces = Espace.objects.filter(id="PLC_PIGALLE")
         serializer = EspaceSerializer(espaces, many=True)
         view = EspaceViewSet.as_view({'get': 'retrieve'})

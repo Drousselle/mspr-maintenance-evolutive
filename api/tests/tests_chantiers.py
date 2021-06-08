@@ -6,8 +6,6 @@ from api.views import ChantierViewSet
 from api.serializers import ChantierSerializer
 
 class GetChantier(TestCase):
-    """
-    """
 
     factory = APIRequestFactory()
 
@@ -39,13 +37,13 @@ class GetChantier(TestCase):
         )
 
     def test_http_code_200(self):
-        request = self.factory.get('/api/chantier/')
+        request = self.factory.get("")
         view = ChantierViewSet.as_view({'get': 'list'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_all_chantiers(self):
-        request = self.factory.get('/api/chantier/')
+        request = self.factory.get("")
         chantiers = Chantier.objects.all()
         serializer = ChantierSerializer(chantiers, many=True)
         view = ChantierViewSet.as_view({'get': 'list'})
@@ -53,7 +51,7 @@ class GetChantier(TestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_get_one_chantier(self):
-        request = self.factory.get('/api/chantier/')
+        request = self.factory.get("")
         chantiers = Chantier.objects.filter(id="3")
         serializer = ChantierSerializer(chantiers, many=True)
         view = ChantierViewSet.as_view({'get': 'retrieve'})

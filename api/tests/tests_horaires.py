@@ -5,10 +5,8 @@ from api.models import Institution
 from api.views import HoraireViewSet
 from api.serializers import HoraireSerializer
 
-class getHoraire(TestCase):
-    """
-    """
 
+class getHoraire(TestCase):
     factory = APIRequestFactory()
 
     def setUp(self):
@@ -25,13 +23,13 @@ class getHoraire(TestCase):
         )
 
     def test_http_code_200(self):
-        request = self.factory.get('/api/horaire/')
+        request = self.factory.get("")
         view = HoraireViewSet.as_view({'get': 'list'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_all_horaires(self):
-        request = self.factory.get('/api/horaire/')
+        request = self.factory.get("")
         horaires = Horaire.objects.all()
         serializer = HoraireSerializer(horaires, many=True)
         view = HoraireViewSet.as_view({'get': 'list'})
@@ -39,7 +37,7 @@ class getHoraire(TestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_get_one_horaire(self):
-        request = self.factory.get('/api/horaire/')
+        request = self.factory.get("")
         horaires = Horaire.objects.filter(id="2")
         serializer = HoraireSerializer(horaires, many=True)
         view = HoraireViewSet.as_view({'get': 'retrieve'})

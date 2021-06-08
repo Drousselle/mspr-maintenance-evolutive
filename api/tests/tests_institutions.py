@@ -6,9 +6,6 @@ from api.serializers import InstitutionSerializer
 
 
 class getInstitution(TestCase):
-    """
-    """
-
     factory = APIRequestFactory()
 
     def setUp(self):
@@ -20,13 +17,13 @@ class getInstitution(TestCase):
         )
 
     def test_http_code_200(self):
-        request = self.factory.get('/api/institution/')
+        request = self.factory.get("")
         view = InstitutionViewSet.as_view({'get': 'list'})
         response = view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_all_institutions(self):
-        request = self.factory.get('/api/institution/')
+        request = self.factory.get("")
         institutions = Institution.objects.all()
         serializer = InstitutionSerializer(institutions, many=True)
         view = InstitutionViewSet.as_view({'get': 'list'})
@@ -34,7 +31,7 @@ class getInstitution(TestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_get_one_institution(self):
-        request = self.factory.get('/api/institution/')
+        request = self.factory.get("")
         institutions = Institution.objects.filter(id="1")
         serializer = InstitutionSerializer(institutions, many=True)
         view = InstitutionViewSet.as_view({'get': 'retrieve'})
