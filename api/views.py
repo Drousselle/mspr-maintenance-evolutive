@@ -10,7 +10,7 @@ from rest_framework_csv import renderers as r
 
 class ArrondissementViewSet(viewsets.ModelViewSet):
     queryset = Arrondissement.objects.all().order_by('id')
-    serializer_class = ArrondissementSerializer
+    serializer_class = ArrondissementSerializer # noqa
     http_method_names = ['get']
 
 

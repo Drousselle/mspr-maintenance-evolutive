@@ -5,8 +5,8 @@ from api.models import Espace
 from api.views import ChantierViewSet
 from api.serializers import ChantierSerializer
 
-class GetChantier(TestCase):
 
+class GetChantier(TestCase):
     factory = APIRequestFactory()
 
     def setUp(self):
