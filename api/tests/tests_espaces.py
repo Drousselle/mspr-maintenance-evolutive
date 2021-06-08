@@ -5,7 +5,7 @@ from api.views import EspaceViewSet
 from api.serializers import EspaceSerializer
 
 
-class GetAllEspaces(TestCase):
+class GetEspaces(TestCase):
     """
     """
 
